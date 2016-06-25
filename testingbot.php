@@ -11,4 +11,4 @@ $app = new TestingBot(
     $si->get('config')
 );
 
-var_dump($app->getConfig());
+$app->handle();

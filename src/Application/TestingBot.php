@@ -2,6 +2,8 @@
 
 namespace Application;
 
+use Application\Storage\Json\Model\InMessage;
+
 class TestingBot
 {
     /** @var Config */
@@ -15,8 +17,15 @@ class TestingBot
         $this->config = $config;
     }
 
-    public function getConfig()
+    public function getMessage()
     {
-        return $this->config;
+        $content = file_get_contents('php://input');
+        return new InMessage($content);
+    }
+
+    public function handle()
+    {
+        $message = $this->getMessage();
+
     }
 }
