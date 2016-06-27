@@ -25,15 +25,15 @@ class TestingBot
 
     public function handle()
     {
-        $message = $this->getMessage();
-        $content = $message->getContent();
-        $f = fopen('tmp.txt', 'w');
-        fwrite($f, $content);
+//        $message = $this->getMessage();
+//        $content = $message->getContent();
+        $f = fopen('./tmp.txt', 'w');
+        fwrite($f, file_get_contents('php://input'));
         fclose($f);
         die();
-        if ($message->getStatus()) {
-            $content = $message->getContent();
-            var_dump($content);
-        }
+//        if ($message->getStatus()) {
+//            $content = $message->getContent();
+//            var_dump($content);
+//        }
     }
 }
