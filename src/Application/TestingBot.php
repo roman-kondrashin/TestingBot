@@ -26,6 +26,14 @@ class TestingBot
     public function handle()
     {
         $message = $this->getMessage();
-
+        $content = $message->getContent();
+        $f = fopen('tmp.txt', 'w');
+        fwrite($f, $content);
+        fclose($f);
+        die();
+        if ($message->getStatus()) {
+            $content = $message->getContent();
+            var_dump($content);
+        }
     }
 }
