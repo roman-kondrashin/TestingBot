@@ -6,7 +6,7 @@ use Application\Storage\Json\Message;
 
 class InMessage extends Message
 {
-    private $content;
+    protected $content;
 
     public function __construct($content)
     {
