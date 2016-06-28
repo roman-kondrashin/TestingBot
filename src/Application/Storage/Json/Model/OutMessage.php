@@ -12,6 +12,8 @@ class OutMessage extends Message
     private $chatId;
     /** @var string */
     private $text;
+    /** @var array */
+    private $keyboard = [];
 
     /**
      * @param string $method
@@ -37,11 +39,20 @@ class OutMessage extends Message
         $this->text = $text;
     }
 
+    public function setKeyboard(array $keyboard)
+    {
+        $this->keyboard = $keyboard;
+    }
+
     public function build()
     {
         $this->content = [
+            'method' => $this->method,
             'chat_id' => $this->chatId,
             'text' => $this->text,
+            'reply_markup' => [
+                'keyboard' => $this->keyboard,
+            ],
         ];
 
         return $this->encode($this->content);

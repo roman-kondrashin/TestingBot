@@ -11,11 +11,12 @@ class TestingBot
     const TOKEN = '221381282:AAHBNtrIFlNGgCB62Fu2Iq0gpUc-nR7_M9A';
     const API_URL = 'https://api.telegram.org/bot' . self::TOKEN . '/';
 
-    const MESSAGE_HELLO = "Добрый день!\n
-Вас приветствует тест основы программирования!\n
-Видео: https://www.youtube.com/watch?v=SW_UCzFO7X0\n
+    const MESSAGE_HELLO = "Добрый день!
+Вас приветствует тест основы программирования!
+Видео: https://www.youtube.com/watch?v=SW_UCzFO7X0
 Выберите уровень сложности:\n
 ";
+    const MESSAGE_HELLO_KEYBOARD = [["Простой", "Продвинутый"]];
 
     /** @var Config */
     private $config;
@@ -92,6 +93,7 @@ SQL;
         $message = new OutMessage();
         $message->setChatId($this->chatId);
         $message->setText(self::MESSAGE_HELLO);
+        $message->setKeyboard(self::MESSAGE_HELLO_KEYBOARD);
 
         return $message;
     }
