@@ -1,14 +1,15 @@
 <?php
 
+use Application\Config;
 use Application\TestingBot;
-use Service\ServiceLocator;
+use Storage\File\Model\Ini;
 
 require_once 'bootstrap.php';
 
-$si = ServiceLocator::getInstance();
-
 $app = new TestingBot(
-    $si->get('config')
+    new Config(
+        new Ini('config/config.ini')
+    )
 );
 
 $app->handle();

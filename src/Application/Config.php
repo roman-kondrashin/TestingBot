@@ -6,9 +6,10 @@ use Storage\File\Model\Ini;
 
 class Config extends \SplFixedArray
 {
-    const KEY_PATH_CSV_CITY = 0;
-    const KEY_PATH_CSV_COST = 1;
-    const KEY_APPLICATION_STORAGE_OFFSET = 2;
+    const KEY_DB_HOST = 0;
+    const KEY_DB_NAME = 1;
+    const KEY_DB_USER = 2;
+    const KEY_DB_PASS = 3;
 
     /**
      * @param Ini $configFile

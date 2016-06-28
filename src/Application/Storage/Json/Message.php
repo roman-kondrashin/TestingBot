@@ -6,9 +6,10 @@ use Storage\Json\JsonObject;
 
 class Message extends JsonObject implements MessageInterface
 {
-    private $content = [];
+    protected $content = [];
 
     public function build()
     {
+
     }
 }

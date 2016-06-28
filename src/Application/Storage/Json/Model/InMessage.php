@@ -10,22 +10,26 @@ class InMessage extends Message
 
     public function __construct($content)
     {
-//        $this->content = $this->decode($content);
-        $this->content = $content;
+        $this->content = $this->decode($content);
     }
 
-    public function getStatus()
+    public function getUpdateId()
     {
-        return $this->content->ok;
+        return $this->content->update_id;
     }
 
-    public function getResult()
+    public function getChatId()
     {
-        return $this->content->result;
+        return $this->content->message->chat->id;
     }
 
-    public function getContent()
+    public function getDate()
     {
-        return $this->getResult()->message;
+        return $this->content->message->date;
+    }
+
+    public function getText()
+    {
+        return $this->content->message->text;
     }
 }
