@@ -9,7 +9,7 @@ use Storage\Db\Mysql;
 class TestingBot
 {
     const TOKEN = '221381282:AAHBNtrIFlNGgCB62Fu2Iq0gpUc-nR7_M9A';
-    const API_URL = 'https://api.telegram.org/bot' . self::TOKEN;
+    const API_URL = 'https://api.telegram.org/bot' . self::TOKEN . '/';
 
     const MESSAGE_HELLO = "Добрый день!\n
 Вас приветствует тест основы программирования!\n
