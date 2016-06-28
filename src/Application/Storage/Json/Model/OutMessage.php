@@ -52,6 +52,7 @@ class OutMessage extends Message
             'text' => $this->text,
             'reply_markup' => [
                 'keyboard' => $this->keyboard,
+                'resize_keyboard' => true,
             ],
         ];
 
