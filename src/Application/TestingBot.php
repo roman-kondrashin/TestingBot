@@ -75,13 +75,13 @@ SQL;
 
     private function sendMessage(OutMessage $message)
     {
-        $parameters['method'] = 'sendMessage';
+        $message->setMethod('sendMessage');
 
         $handle = curl_init(self::API_URL);
         curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($handle, CURLOPT_CONNECTTIMEOUT, 5);
         curl_setopt($handle, CURLOPT_TIMEOUT, 60);
-        curl_setopt($handle, CURLOPT_POSTFIELDS, json_encode($parameters));
+        curl_setopt($handle, CURLOPT_POSTFIELDS, $message->build());
         curl_setopt($handle, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 
         return curl_exec($handle);
@@ -93,7 +93,7 @@ SQL;
         $message->setChatId($this->chatId);
         $message->setText(self::MESSAGE_HELLO);
 
-        return $message->build();
+        return $message;
     }
 }
 

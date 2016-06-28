@@ -6,10 +6,20 @@ use Application\Storage\Json\Message;
 
 class OutMessage extends Message
 {
+    /** @var string */
+    private $method;
     /** @var int */
     private $chatId;
     /** @var string */
     private $text;
+
+    /**
+     * @param string $method
+     */
+    public function setMethod($method)
+    {
+        $this->method = $method;
+    }
 
     /**
      * @param int $chatId
