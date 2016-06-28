@@ -43,6 +43,12 @@ class Mysql
         return $data;
     }
 
+    public function fetchOne($sql)
+    {
+        $data = $this->fetch($sql);
+        return isset($data[0]) ? $data[0] : null;
+    }
+
     public function close()
     {
         $this->dbh->close();
