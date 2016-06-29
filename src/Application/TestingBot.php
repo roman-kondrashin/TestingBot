@@ -8,8 +8,8 @@ use Storage\Db\Mysql;
 
 class TestingBot
 {
-    const TOKEN = '221381282:AAHBNtrIFlNGgCB62Fu2Iq0gpUc-nR7_M9A';
-//    const TOKEN = '227815068:AAHPqrZo7YXh93NxXwOSy80UP3acSPTVPs0';
+//    const TOKEN = '221381282:AAHBNtrIFlNGgCB62Fu2Iq0gpUc-nR7_M9A';
+    const TOKEN = '227815068:AAHPqrZo7YXh93NxXwOSy80UP3acSPTVPs0';
     const API_URL = 'https://api.telegram.org/bot' . self::TOKEN . '/';
 
     const TEST_TYPE_SIMPLE = 0;
@@ -200,10 +200,10 @@ class TestingBot
         }
 
         // hello
-        if ($number == 0 && strpos($text, '/start') === 0) {
+        if (strpos($text, '/start') === 0) {
             $this->sendHello1Message();
         }
-        elseif ($number == 0 && $text == self::MESSAGE_GET_VIDEO) {
+        elseif ($text == self::MESSAGE_GET_VIDEO) {
             $this->sendHelloMessage();
             $this->sendHelloQuestion();
         }
