@@ -53,7 +53,7 @@ class TestingBot
             ],
             4 => [
                 'text' => 'Какая последовательность чисел используется для RGB?',
-                'answers' => ['33 16 14', '72 73 33'],
+                'answers' => ['33 16 14', '72 73 33', '22 43 32', '33 22 11'],
                 'right_answer' => '72 73 33',
                 'wrong_answer' => 'https://youtu.be/SW_UCzFO7X0?t=946',
             ],
@@ -184,8 +184,19 @@ class TestingBot
 
     private function getAnswerKeyboard($test_type, $number)
     {
+        $result = [];
+
+        $i = 0;
         $answers = $this->getAnswers($test_type, $number);
-        return array_map(function ($a) { return [$a]; }, $answers);
+        foreach ($answers as $index => $answer) {
+            if ($index != 0 && $index % 2 == 0) {
+                $i++;
+            }
+
+            $answer[$i][] = $answer;
+        }
+
+        return $result;
     }
 
     private function getWrongAnswer($test_type, $number)
