@@ -8,8 +8,8 @@ use Storage\Db\Mysql;
 
 class TestingBot
 {
-    const TOKEN = '221381282:AAHBNtrIFlNGgCB62Fu2Iq0gpUc-nR7_M9A';
-//    const TOKEN = '227815068:AAHPqrZo7YXh93NxXwOSy80UP3acSPTVPs0';
+//    const TOKEN = '221381282:AAHBNtrIFlNGgCB62Fu2Iq0gpUc-nR7_M9A';
+    const TOKEN = '227815068:AAHPqrZo7YXh93NxXwOSy80UP3acSPTVPs0';
     const API_URL = 'https://api.telegram.org/bot' . self::TOKEN . '/';
 
     const TEST_TYPE_SIMPLE = 0;
@@ -203,6 +203,10 @@ class TestingBot
         if (strpos($text, '/start') === 0) {
             $this->sendHello1Message();
         }
+        elseif ($text == self::MESSAGE_GET_VIDEO) {
+            $this->sendHelloMessage();
+            $this->sendHelloQuestion();
+        }
         // test level
         elseif ($number == 0 && $text != self::TEST_TYPE_SIMPLE_TEXT && $text != self::TEST_TYPE_COMPLEX_TEXT) {
             $this->sendHelloQuestion();
@@ -210,10 +214,7 @@ class TestingBot
             $this->saveAnswer($message);
 
             $test_type = $this->getTestType($message);
-            if ($text == self::MESSAGE_GET_VIDEO) {
-                $this->sendHelloMessage();
-                $this->sendHelloQuestion();
-            } elseif ($text == self::TEST_TYPE_SIMPLE_TEXT || $text == self::TEST_TYPE_COMPLEX_TEXT) {
+            if ($text == self::TEST_TYPE_SIMPLE_TEXT || $text == self::TEST_TYPE_COMPLEX_TEXT) {
                 $outMessage = new OutMessage();
                 $outMessage->setChatId($this->chatId);
                 $outMessage->setText($this->getQuestion($test_type, $number + 1));
