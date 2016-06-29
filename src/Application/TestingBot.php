@@ -202,14 +202,17 @@ class TestingBot
         // hello
         if (strpos($text, '/start') === 0) {
             $this->sendHello1Message();
+            return;
         }
         elseif ($text == self::MESSAGE_GET_VIDEO) {
             $this->sendHelloMessage();
             $this->sendHelloQuestion();
+            return;
         }
         // test level
         elseif ($number == 0 && $text != self::TEST_TYPE_SIMPLE_TEXT && $text != self::TEST_TYPE_COMPLEX_TEXT) {
             $this->sendHelloQuestion();
+            return;
         } elseif ($number == 0) {
             $this->saveAnswer($message);
 
