@@ -8,8 +8,8 @@ use Storage\Db\Mysql;
 
 class TestingBot
 {
-//    const TOKEN = '221381282:AAHBNtrIFlNGgCB62Fu2Iq0gpUc-nR7_M9A';
-    const TOKEN = '227815068:AAHPqrZo7YXh93NxXwOSy80UP3acSPTVPs0';
+    const TOKEN = '221381282:AAHBNtrIFlNGgCB62Fu2Iq0gpUc-nR7_M9A';
+//    const TOKEN = '227815068:AAHPqrZo7YXh93NxXwOSy80UP3acSPTVPs0';
     const API_URL = 'https://api.telegram.org/bot' . self::TOKEN . '/';
 
     const TEST_TYPE_SIMPLE = 0;
