@@ -213,17 +213,16 @@ class TestingBot
             if ($text == self::MESSAGE_GET_VIDEO) {
                 $this->sendHelloMessage();
                 $this->sendHelloQuestion();
-                exit();
             } elseif ($text == self::TEST_TYPE_SIMPLE_TEXT || $text == self::TEST_TYPE_COMPLEX_TEXT) {
                 $outMessage = new OutMessage();
                 $outMessage->setChatId($this->chatId);
                 $outMessage->setText($this->getQuestion($test_type, $number + 1));
                 $outMessage->setKeyboard($this->getAnswerKeyboard($test_type, $number + 1));
+                $this->sendMessage($outMessage);
             } else {
                 $outMessage = $this->getHelloQuestion();
+                $this->sendMessage($outMessage);
             }
-
-            $this->sendMessage($outMessage);
         // in test
         } elseif ($number > 0) {
             $test_type = $this->getTestType($message);
