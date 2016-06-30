@@ -8,8 +8,8 @@ use Storage\Db\Mysql;
 
 class TestingBot
 {
-    const TOKEN = '221381282:AAHBNtrIFlNGgCB62Fu2Iq0gpUc-nR7_M9A';
-//    const TOKEN = '227815068:AAHPqrZo7YXh93NxXwOSy80UP3acSPTVPs0';
+//    const TOKEN = '221381282:AAHBNtrIFlNGgCB62Fu2Iq0gpUc-nR7_M9A';
+    const TOKEN = '227815068:AAHPqrZo7YXh93NxXwOSy80UP3acSPTVPs0';
     const API_URL = 'https://api.telegram.org/bot' . self::TOKEN . '/';
 
     const TEST_TYPE_SIMPLE = 0;
@@ -44,7 +44,7 @@ class TestingBot
 Вы прошли тест на %2.2f из %d возможных баллов.
 Тест считается успешно пройденным, если вы набрали более 6ти баллов из 8 возможных, с 1-го раза.
 ';
-    const MESSAGE_RESULT_KEYBOARD = [[self::MESSAGE_START_AGAIN]];
+    const MESSAGE_RESULT_KEYBOARD = [[self::MESSAGE_START_AGAIN, self::MESSAGE_CONTINUE, self::MESSAGE_SEND_RESULTS]];
 
     /** @var Config */
     private $config;
@@ -255,7 +255,7 @@ class TestingBot
                             $result = $this->calculateResult($test_type);
                             $outMessage->setChatId($this->chatId);
                             $text = $test_type ? self::MESSAGE_RESULT_TEXT_COMPLEX : self::MESSAGE_RESULT_TEXT_SIMPLE;
-                            $outMessage->setText(sprintf(self::$text, $result->user, $result->max));
+                            $outMessage->setText(sprintf($text, $result->user, $result->max));
                             $outMessage->setKeyboard(self::MESSAGE_RESULT_KEYBOARD);
                         } else {
                             $outMessage->setChatId($this->chatId);
