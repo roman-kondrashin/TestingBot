@@ -8,8 +8,8 @@ use Storage\Db\Mysql;
 
 class TestingBot
 {
-//    const TOKEN = '221381282:AAHBNtrIFlNGgCB62Fu2Iq0gpUc-nR7_M9A';
-    const TOKEN = '227815068:AAHPqrZo7YXh93NxXwOSy80UP3acSPTVPs0';
+    const TOKEN = '221381282:AAHBNtrIFlNGgCB62Fu2Iq0gpUc-nR7_M9A';
+//    const TOKEN = '227815068:AAHPqrZo7YXh93NxXwOSy80UP3acSPTVPs0';
     const API_URL = 'https://api.telegram.org/bot' . self::TOKEN . '/';
 
     const TEST_TYPE_SIMPLE = 0;
@@ -21,6 +21,8 @@ class TestingBot
     const TEST_TYPE_COMPLEX_TEXT = 'Продвинутый';
 
     const MESSAGE_START_AGAIN = 'Пройти тест еще раз';
+    const MESSAGE_CONTINUE = 'Продолжить';
+    const MESSAGE_SEND_RESULTS = 'Закончить и отправить результат';
 
     const MESSAGE_HELLO1_TEXT = 'Добрый день!
 Вас приветствует тренинг и тест по основам программирования!
@@ -32,9 +34,15 @@ class TestingBot
     const MESSAGE_HELLO2_QUESTION = 'Выберите уровень сложности:';
     const MESSAGE_HELLO2_KEYBOARD = [[self::TEST_TYPE_SIMPLE_TEXT, self::TEST_TYPE_COMPLEX_TEXT]];
 
-    const MESSAGE_RESULT_TEXT = 'Спасибо!
+    const MESSAGE_WRONG_TEXT = 'Не верно, посмотрите этот момент в лекции ещё раз пожалуйста.';
+
+    const MESSAGE_RESULT_TEXT_SIMPLE = 'Спасибо!
 Вы прошли тест на %2.2f из %d возможных баллов.
-Тест считается сданным успешно если вы набрали более 80%% с первого раза.
+Тест считается успешно пройденным, если вы набрали более 3х баллов из 4 возможных, с 1-го раза.
+';
+    const MESSAGE_RESULT_TEXT_COMPLEX = 'Спасибо!
+Вы прошли тест на %2.2f из %d возможных баллов.
+Тест считается успешно пройденным, если вы набрали более 6ти баллов из 8 возможных, с 1-го раза.
 ';
     const MESSAGE_RESULT_KEYBOARD = [[self::MESSAGE_START_AGAIN]];
 
@@ -48,7 +56,7 @@ class TestingBot
     private $questions = [
         self::TEST_TYPE_SIMPLE => [
             1 => [
-                'text' => 'Вопрос 1 из 5.',
+                'text' => 'Вопрос 1 из 5:  https://fs00.infourok.ru/images/doc/246/250438/img1.jpg',
                 'answers' => ['Квадрат', 'Круг', 'Треугольник', 'Прямоугольник', 'Зигзаг'],
                 'right_answer' => true,
                 'results' => [
@@ -56,7 +64,7 @@ class TestingBot
                 ],
             ],
             2 => [
-                'text' => 'Вопрос 2 из 5. Какое число зашифровано в двоичном коде "111"?',
+                'text' => 'Вопрос 2 из 5: Какое число зашифровано в двоичном коде "111"?',
                 'answers' => ['111', '1', '7', '3'],
                 'right_answer' => '7',
                 'wrong_answer' => 'https://youtu.be/SW_UCzFO7X0?t=500',
@@ -68,7 +76,7 @@ class TestingBot
                 ],
             ],
             3 => [
-                'text' => 'Вопрос 3 из 5. Как в двоичном коде выглядит число 50?',
+                'text' => 'Вопрос 3 из 5: Как в двоичном коде выглядит число 50?',
                 'answers' => ['10010001', '00020202', '50', '00110010'],
                 'right_answer' => '00110010',
                 'wrong_answer' => 'https://youtu.be/SW_UCzFO7X0?t=746',
@@ -80,7 +88,7 @@ class TestingBot
                 ],
             ],
             4 => [
-                'text' => 'Вопрос 4 из 5. Что означают цифры "72" "73" "33" в ASCII?',
+                'text' => 'Вопрос 4 из 5: Что означают цифры "72" "73" "33" в ASCII?',
                 'answers' => ['HI!', 'ASD', 'QWE', 'YES'],
                 'right_answer' => 'HI!',
                 'wrong_answer' => 'https://youtu.be/SW_UCzFO7X0?t=849',
@@ -92,7 +100,7 @@ class TestingBot
                 ],
             ],
             5 => [
-                'text' => 'Вопрос 5 из 5. Какая последовательность чисел используется для RGB?',
+                'text' => 'Вопрос 5 из 5: Какая последовательность чисел используется для RGB?',
                 'answers' => ['33 16 14', '72 73 33', '22 43 32', '33 22 11'],
                 'right_answer' => '72 73 33',
                 'wrong_answer' => 'https://youtu.be/SW_UCzFO7X0?t=946',
@@ -106,7 +114,7 @@ class TestingBot
         ],
         self::TEST_TYPE_COMPLEX => [
             1 => [
-                'text' => 'Вопрос 1 из 5.',
+                'text' => 'Вопрос 1 из 5: https://fs00.infourok.ru/images/doc/246/250438/img1.jpg',
                 'answers' => ['Квадрат', 'Круг', 'Треугольник', 'Прямоугольник', 'Зигзаг'],
                 'right_answer' => true,
                 'results' => [
@@ -114,7 +122,7 @@ class TestingBot
                 ],
             ],
             2 => [
-                'text' => 'Вопрос 2 из 5. Какое число будет в двоичном коде "01100111"?',
+                'text' => 'Вопрос 2 из 5: Какое число будет в двоичном коде "01100111"?',
                 'answers' => ['5', '122', '103', '111'],
                 'right_answer' => '103',
                 'wrong_answer' => 'https://youtu.be/SW_UCzFO7X0?t=500',
@@ -126,7 +134,7 @@ class TestingBot
                 ],
             ],
             3 => [
-                'text' => 'Вопрос 3 из 5. Как в двоичном коде выглядит число 300?',
+                'text' => 'Вопрос 3 из 5: Как в двоичном коде выглядит число 300?',
                 'answers' => ['100100010', '01020202', '100101100', '100110010'],
                 'right_answer' => '100101100',
                 'wrong_answer' => 'https://youtu.be/SW_UCzFO7X0?t=746',
@@ -138,7 +146,7 @@ class TestingBot
                 ],
             ],
             4 => [
-                'text' => 'Вопрос 4 из 5. Как будет обозначено HELP в ASCII?',
+                'text' => 'Вопрос 4 из 5: Как будет обозначено HELP в ASCII?',
                 'answers' => ['80 73 89 65', '001101110', '72 69 76 80', '02132123'],
                 'right_answer' => '72 69 76 80',
                 'wrong_answer' => 'https://youtu.be/SW_UCzFO7X0?t=810',
@@ -150,7 +158,7 @@ class TestingBot
                 ],
             ],
             5 => [
-                'text' => 'Вопрос 5 из 5. Сколько шагов нужно, чтобы найти запись в 4 миллиардах записей?',
+                'text' => 'Вопрос 5 из 5: Сколько шагов нужно, чтобы найти запись в 4 миллиардах записей?',
                 'answers' => ['64', '32', '16', '128'],
                 'right_answer' => '32',
                 'wrong_answer' => 'https://youtu.be/SW_UCzFO7X0?t=1373',
@@ -194,13 +202,18 @@ class TestingBot
         $number = $this->getCurrentQuestionNumber();
 
         // again
-        if ($text == self::MESSAGE_START_AGAIN) {
+        if (
+            $text == self::MESSAGE_START_AGAIN
+            || $text == self::MESSAGE_CONTINUE
+            || $text == self::MESSAGE_SEND_RESULTS
+        ) {
             $this->clearResults();
             $text = '/start';
         }
 
         // hello
         if (strpos($text, '/start') === 0) {
+            $this->clearResults();
             $this->sendHello1Message();
         }
         elseif ($text == self::MESSAGE_GET_VIDEO) {
@@ -241,7 +254,8 @@ class TestingBot
                         if ($number == count($this->questions[$test_type])) {
                             $result = $this->calculateResult($test_type);
                             $outMessage->setChatId($this->chatId);
-                            $outMessage->setText(sprintf(self::MESSAGE_RESULT_TEXT, $result->user, $result->max));
+                            $text = $test_type ? self::MESSAGE_RESULT_TEXT_COMPLEX : self::MESSAGE_RESULT_TEXT_SIMPLE;
+                            $outMessage->setText(sprintf(self::$text, $result->user, $result->max));
                             $outMessage->setKeyboard(self::MESSAGE_RESULT_KEYBOARD);
                         } else {
                             $outMessage->setChatId($this->chatId);
@@ -252,7 +266,7 @@ class TestingBot
                         $this->saveAnswer($message, $number, $test_type, $try_number + 1, 0);
                         $outMessage = new OutMessage();
                         $outMessage->setChatId($this->chatId);
-                        $outMessage->setText($this->getWrongAnswer($test_type, $number));
+                        $outMessage->setText(self::MESSAGE_WRONG_TEXT . "\n" . $this->getWrongAnswer($test_type, $number));
                         $outMessage->setKeyboard($this->getAnswerKeyboard($test_type, $number));
                     }
 
