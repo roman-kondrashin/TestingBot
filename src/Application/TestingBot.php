@@ -44,7 +44,7 @@ class TestingBot
 Вы прошли тест на %2.2f из %d возможных баллов.
 Тест считается успешно пройденным, если вы набрали более 6ти баллов из 8 возможных, с 1-го раза.
 ';
-    const MESSAGE_RESULT_KEYBOARD = [[self::MESSAGE_START_AGAIN, self::MESSAGE_CONTINUE, self::MESSAGE_SEND_RESULTS]];
+    const MESSAGE_RESULT_KEYBOARD = [[self::MESSAGE_START_AGAIN], [self::MESSAGE_CONTINUE], [self::MESSAGE_SEND_RESULTS]];
 
     /** @var Config */
     private $config;
